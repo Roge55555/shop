@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Data
 @Builder
 @Entity
-@Table(name = "characteristicTable")
+@Table(name = "characteristic_table")
 public class CharacteristicTable {
 
     @Id
@@ -24,7 +24,7 @@ public class CharacteristicTable {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @ManyToOne//?
+    @ManyToOne
     @JoinColumn(name = "characteristic_id")
     private Characteristic characteristic;
 

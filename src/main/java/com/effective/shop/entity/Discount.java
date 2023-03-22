@@ -26,7 +26,7 @@ public class Discount {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "creator")
+    @JoinColumn(name = "creator_id")
     private User creator;
 
     @Column(name = "amount")
