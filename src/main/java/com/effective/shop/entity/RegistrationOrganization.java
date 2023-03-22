@@ -30,5 +30,6 @@ public class RegistrationOrganization {
     private User admin;
 
     @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private Status status;
 }
