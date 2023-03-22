@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
@@ -26,21 +25,25 @@ public class Discount {
     @Column(name = "name")
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "creator")
+    private User creator;
+
     @Column(name = "amount")
     @NotNull
     @Positive
     private Long amount;
 
-    @Column(name = "from")
-    private LocalDateTime from;
+    @Column(name = "discount_from")
+    private LocalDateTime discountFrom;
 
-    @Column(name = "to")
-    private LocalDateTime to;
+    @Column(name = "discount_to")
+    private LocalDateTime discountTo;
 
     @JsonIgnore
     @OneToMany(mappedBy = "discount", cascade = CascadeType.REMOVE)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private List<Discount> discountList;
+    private List<Product> productList;
 
 }

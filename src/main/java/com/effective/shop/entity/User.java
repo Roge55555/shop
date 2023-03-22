@@ -15,7 +15,7 @@ import java.util.List;
 @Data
 @Builder
 @Entity
-@Table(name = "user")
+@Table(name = "\"user\"")
 public class User {
 
     @Id
@@ -50,6 +50,12 @@ public class User {
     @OneToMany(mappedBy = "creator", cascade = CascadeType.REMOVE)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
+    private List<Discount> discountList;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.REMOVE)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private List<Organization> sessionList;
 
     @JsonIgnore
@@ -75,5 +81,17 @@ public class User {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<Purchase> purchaseList;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "admin", cascade = CascadeType.REMOVE)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private List<RegistrationProduct> registrationProductList;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "admin", cascade = CascadeType.REMOVE)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private List<RegistrationOrganization> registrationOrganizationList;
 
 }

@@ -1,6 +1,5 @@
 package com.effective.shop.entity;
 
-import com.effective.shop.model.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
