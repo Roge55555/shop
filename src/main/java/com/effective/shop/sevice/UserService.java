@@ -2,17 +2,21 @@ package com.effective.shop.sevice;
 
 import com.effective.shop.entity.User;
 
+import java.util.List;
+
 public interface UserService {
 
     User add(User user);
+
+    List<User> findAll();
 
     User findById(Long id);
 
     User findByLogin(String login);
 
-    User update(User user);
+    void delete(Long id);
 
-    void delete();
+    void changeBalance(Double balance, Long userId);
 
-    void changePassword(String oldPassword, String newPassword);
+    void changeAccess(Long id, String role);
 }

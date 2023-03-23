@@ -1,13 +1,16 @@
 package com.effective.shop.controller;
 
 import com.effective.shop.entity.User;
+import com.effective.shop.model.ChangeBalance;
 import com.effective.shop.model.dto.UserAddDTO;
 import com.effective.shop.sevice.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -27,15 +30,38 @@ public class UserController {
         return userService.add(user);
     }
 
+    @GetMapping
+    @ResponseStatus(HttpStatus.FOUND)
+    @PreAuthorize("hasAuthority('user:permission')")
+    public List<User> getAllUsers() {
+        return userService.findAll();
+    }
+
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.FOUND)
+    @PreAuthorize("hasAuthority('user:permission')")
     public User getById(@PathVariable("id") Long id) {
         return userService.findById(id);
     }
 
-    @GetMapping("/find/{login}")
-    @ResponseStatus(HttpStatus.FOUND)
-    public User getByLogin(@PathVariable("login") String login) {
-        return userService.findByLogin(login);
+    @PatchMapping
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @PreAuthorize("hasAuthority('admin:permission')")
+    public void changeBalance(@Valid @RequestBody ChangeBalance changeBalance) {
+        userService.changeBalance(changeBalance.getBalance(), changeBalance.getUserId());
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @PreAuthorize("hasAuthority('admin:permission')")
+    public void updateAccess(@PathVariable("id") Long id, @RequestBody String role) {
+        userService.changeAccess(id, role);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasAuthority('user:permission') || hasAuthority('admin:permission')")
+    public void deleteUser(@PathVariable("id") Long id) {
+        userService.delete(id);
     }
 }
