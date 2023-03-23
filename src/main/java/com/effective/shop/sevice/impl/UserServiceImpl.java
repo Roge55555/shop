@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService {
 
     private final PasswordEncoder passwordEncoder;
 
+    @Override
     public User add(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setBalance(0D);
