@@ -51,7 +51,7 @@ public class UserController {
         userService.changeBalance(changeBalance.getBalance(), changeBalance.getUserId());
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PreAuthorize("hasAuthority('admin:permission')")
     public void updateAccess(@PathVariable("id") Long id, @RequestBody String role) {
