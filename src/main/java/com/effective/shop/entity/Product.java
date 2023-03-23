@@ -45,6 +45,14 @@ public class Product {
     @Column(name = "tag")
     private String tag;
 
+    @ManyToOne
+    @JoinColumn(name = "organization_id")
+    private Organization organization;
+
+    @ManyToOne
+    @JoinColumn(name = "status")
+    private RegistrationStatus status;
+
     @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
     @EqualsAndHashCode.Exclude

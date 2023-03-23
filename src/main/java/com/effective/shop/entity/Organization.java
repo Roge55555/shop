@@ -41,11 +41,9 @@ public class Organization {
     @Column(name = "date_created")
     private LocalDate dateCreated;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "organization", cascade = CascadeType.REMOVE)
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private List<RegistrationProduct> registrationProductList;
+    @ManyToOne
+    @JoinColumn(name = "status")
+    private RegistrationStatus status;
 
     @JsonIgnore
     @OneToMany(mappedBy = "organization", cascade = CascadeType.REMOVE)

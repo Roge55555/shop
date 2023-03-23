@@ -27,8 +27,4 @@ public class RegistrationOrganization {
     @ManyToOne
     @JoinColumn(name = "admin_id")
     private User admin;
-
-    @ManyToOne
-    @JoinColumn(name = "status")
-    private RegistrationStatus status;
 }

@@ -58,6 +58,30 @@
             </column>
         </createTable>
 
+        <createTable tableName="organization">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+            <column name="date_created" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="logo" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="creator_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_creator_organization_user" references="user(id)"/>
+            </column>
+            <column name="status" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_status_organization_rs" references="registration_status(id)"/>
+            </column>
+        </createTable>
+
         <createTable tableName="product">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
@@ -80,6 +104,12 @@
             <column name="discount_id" type="bigint">
                 <constraints nullable="false" foreignKeyName="fk_discount_product_discount" references="discount(id)"/>
             </column>
+            <column name="organization_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_organization_product_organization" references="organization(id)"/>
+            </column>
+            <column name="status" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_status_product_rs" references="registration_status(id)"/>
+            </column>
         </createTable>
 
         <createTable tableName="notification">
@@ -100,27 +130,6 @@
             </column>
             <column name="receiver_id" type="bigint">
                 <constraints nullable="false" foreignKeyName="fk_receiver_notification_user" references="user(id)"/>
-            </column>
-        </createTable>
-
-        <createTable tableName="organization">
-            <column name="id" type="bigint" autoIncrement="true">
-                <constraints nullable="false" unique="true" primaryKey="true"/>
-            </column>
-            <column name="date_created" type="date">
-                <constraints nullable="false"/>
-            </column>
-            <column name="description" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="logo" type="varchar(255)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="name" type="varchar(255)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="creator_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_creator_organization_user" references="user(id)"/>
             </column>
         </createTable>
 
@@ -197,14 +206,8 @@
             <column name="product_id" type="bigint">
                 <constraints nullable="false" foreignKeyName="fk_product_rp_product" references="product(id)"/>
             </column>
-            <column name="organization_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_organization_rp_organization" references="organization(id)"/>
-            </column>
             <column name="admin_id" type="bigint">
                 <constraints nullable="false" foreignKeyName="fk_admin_rp_user" references="user(id)"/>
-            </column>
-            <column name="status" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_status_rp_rs" references="registration_status(id)"/>
             </column>
         </createTable>
 
@@ -217,9 +220,6 @@
             </column>
             <column name="admin_id" type="bigint">
                 <constraints nullable="false" foreignKeyName="fk_admin_ro_user" references="user(id)"/>
-            </column>
-            <column name="status" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_status_ro_rs" references="registration_status(id)"/>
             </column>
         </createTable>
     </changeSet>
