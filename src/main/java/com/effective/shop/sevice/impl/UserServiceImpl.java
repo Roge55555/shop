@@ -6,6 +6,7 @@ import com.effective.shop.repository.UserRepository;
 import com.effective.shop.sevice.AccessRoleService;
 import com.effective.shop.sevice.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,8 +17,10 @@ public class UserServiceImpl implements UserService {
 
     private final AccessRoleService accessRoleService;
 
+    private final PasswordEncoder passwordEncoder;
+
     public User add(User user) {
-        //TODO coding password before save
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setBalance(0D);
         user.setRole(accessRoleService.findByName(Role.USER));
 
