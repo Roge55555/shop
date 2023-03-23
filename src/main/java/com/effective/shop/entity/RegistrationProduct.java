@@ -1,6 +1,5 @@
 package com.effective.shop.entity;
 
-import com.effective.shop.model.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,7 +32,7 @@ public class RegistrationProduct {
     @JoinColumn(name = "admin_id")
     private User admin;
 
-    @Column(name = "status")
-    @Enumerated(EnumType.STRING)
-    private Status status;
+    @ManyToOne
+    @JoinColumn(name = "status")
+    private RegistrationStatus status;
 }

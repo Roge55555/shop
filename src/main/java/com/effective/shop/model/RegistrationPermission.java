@@ -1,6 +1,6 @@
 package com.effective.shop.model;
 
-public enum OrganizationPermission {
+public enum RegistrationPermission {
 
     CONSIDERATION_PERMISSION("hidden:permission"),
     APPROVED_PERMISSION("available:permission"),
@@ -9,7 +9,7 @@ public enum OrganizationPermission {
 
     private final String organizationPermission;
 
-    OrganizationPermission(String organizationPermission) {
+    RegistrationPermission(String organizationPermission) {
         this.organizationPermission = organizationPermission;
     }
 

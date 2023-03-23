@@ -1,5 +1,6 @@
 package com.effective.shop.entity;
 
+import com.effective.shop.model.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,23 +13,16 @@ import javax.persistence.*;
 @Data
 @Builder
 @Entity
-@Table(name = "registration_organization")
-public class RegistrationOrganization {
+@Table(name = "registration_status")
+public class RegistrationStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "organization_id")
-    private Organization organization;
+    @Column(name = "status_name")
+    @Enumerated(EnumType.STRING)
+    private Status name;
 
-    @ManyToOne
-    @JoinColumn(name = "admin_id")
-    private User admin;
-
-    @ManyToOne
-    @JoinColumn(name = "status")
-    private RegistrationStatus status;
 }

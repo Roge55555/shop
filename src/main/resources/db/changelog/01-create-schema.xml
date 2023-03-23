@@ -181,6 +181,15 @@
             </column>
         </createTable>
 
+        <createTable tableName="registration_status">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+            <column name="status_name" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+
         <createTable tableName="registration_product">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
@@ -194,8 +203,8 @@
             <column name="admin_id" type="bigint">
                 <constraints nullable="false" foreignKeyName="fk_admin_rp_user" references="user(id)"/>
             </column>
-            <column name="status" type="varchar(255)">
-                <constraints nullable="false"/>
+            <column name="status" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_status_rp_rs" references="registration_status(id)"/>
             </column>
         </createTable>
 
@@ -209,8 +218,8 @@
             <column name="admin_id" type="bigint">
                 <constraints nullable="false" foreignKeyName="fk_admin_ro_user" references="user(id)"/>
             </column>
-            <column name="status" type="varchar(255)">
-                <constraints nullable="false"/>
+            <column name="status" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_status_ro_rs" references="registration_status(id)"/>
             </column>
         </createTable>
     </changeSet>

@@ -7,19 +7,19 @@ import java.util.stream.Collectors;
 
 public enum Status {
 
-    CONSIDERATION(Set.of(OrganizationPermission.CONSIDERATION_PERMISSION)),
-    APPROVED(Set.of(OrganizationPermission.APPROVED_PERMISSION)),
-    FROZEN(Set.of(OrganizationPermission.FROZEN_PERMISSION)),
-    DELETED(Set.of(OrganizationPermission.DELETED_PERMISSION));
+    CONSIDERATION(Set.of(RegistrationPermission.CONSIDERATION_PERMISSION)),
+    APPROVED(Set.of(RegistrationPermission.APPROVED_PERMISSION)),
+    FROZEN(Set.of(RegistrationPermission.FROZEN_PERMISSION)),
+    DELETED(Set.of(RegistrationPermission.DELETED_PERMISSION));
 
-    private final Set<OrganizationPermission> organizationPermissions;
+    private final Set<RegistrationPermission> registrationPermissions;
 
-    Status(Set<OrganizationPermission> organizationPermissions) {
-        this.organizationPermissions = organizationPermissions;
+    Status(Set<RegistrationPermission> registrationPermissions) {
+        this.registrationPermissions = registrationPermissions;
     }
 
-    public Set<OrganizationPermission> getPermissions() {
-        return organizationPermissions;
+    public Set<RegistrationPermission> getPermissions() {
+        return registrationPermissions;
     }
 
     public Set<SimpleGrantedAuthority> getAuthority() {
