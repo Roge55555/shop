@@ -111,7 +111,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="discount_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_discount_product_discount" references="discount(id)"/>
+                <constraints nullable="true" foreignKeyName="fk_discount_product_discount" references="discount(id)"/>
             </column>
             <column name="organization_id" type="bigint">
                 <constraints nullable="false" foreignKeyName="fk_organization_product_organization" references="organization(id)"/>
@@ -195,6 +195,9 @@
                 <constraints nullable="false" foreignKeyName="fk_creator_purchase_user" references="user(id)"/>
             </column>
             <column name="amount" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_created" type="datetime">
                 <constraints nullable="false"/>
             </column>
         </createTable>

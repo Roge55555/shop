@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 
 @AllArgsConstructor
@@ -29,13 +29,12 @@ public class Product {
     private String description;
 
     @Column(name = "price")
-    @NotBlank
     @Positive
     private Double price;
 
     @Column(name = "amount")
     @NotNull
-    @Positive
+    @PositiveOrZero
     private Long amount;
 
     @ManyToOne
