@@ -11,6 +11,7 @@ import com.effective.shop.sevice.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
@@ -43,9 +44,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(Long id) {
-        return userRepository.findById(id).orElseThrow();
+        return userRepository.findById(id).orElseThrow(() -> {
+            throw new NoSuchElementException(id);
+        });
     }
 
+    @Transactional
     @Override
     public User findByLogin(String login) {
         return userRepository.findByLogin(login).orElseThrow();

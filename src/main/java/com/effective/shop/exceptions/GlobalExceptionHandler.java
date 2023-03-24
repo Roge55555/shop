@@ -30,4 +30,18 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(noSuchElementMessage + noSuchElementException.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(value = NotEnoughElementException.class)
+    public ResponseEntity<String> notEnoughElementException(NotEnoughElementException notEnoughElementException) {
+        return new ResponseEntity<>(notEnoughElementException.getMessage(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(value = TooLowBalanceException.class)
+    public ResponseEntity<String> tooLowBalance(TooLowBalanceException tooLowBalanceException) {
+        return new ResponseEntity<>(tooLowBalanceException.getMessage(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(value = TimeOutException.class)
+    public ResponseEntity<String> timeOutException(TimeOutException timeOutException) {
+        return new ResponseEntity<>(timeOutException.getMessage(), HttpStatus.CONFLICT);
+    }
 }

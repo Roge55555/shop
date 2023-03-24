@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,4 +31,7 @@ public class Purchase {
 
     @Column(name = "amount")
     private Long amount;
+
+    @Column(name = "date_created")
+    private LocalDateTime date;
 }
