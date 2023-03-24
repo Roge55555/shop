@@ -84,16 +84,4 @@ public class User {
     @ToString.Exclude
     private List<Purchase> purchaseList;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "admin", cascade = CascadeType.REMOVE)
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private List<RegistrationProduct> registrationProductList;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "admin", cascade = CascadeType.REMOVE)
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private List<RegistrationOrganization> registrationOrganizationList;
-
 }

@@ -68,9 +68,4 @@ public class Product {
     @ToString.Exclude
     private List<Purchase> purchaseList;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private List<RegistrationProduct> registrationProductList;
 }

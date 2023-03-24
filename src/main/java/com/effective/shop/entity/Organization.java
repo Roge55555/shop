@@ -45,10 +45,4 @@ public class Organization {
     @JoinColumn(name = "status")
     private RegistrationStatus status;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "organization", cascade = CascadeType.REMOVE)
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private List<RegistrationOrganization> registrationOrganizationList;
-
 }
