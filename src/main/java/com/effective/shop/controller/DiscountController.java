@@ -30,11 +30,12 @@ public class DiscountController {
         return discountService.add(discount);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAuthority('admin:permission')")
-    public Discount updateDiscount(@Valid @RequestBody DiscountDTO discountDTO) {
+    public Discount updateDiscount(@PathVariable("id") Long id, @Valid @RequestBody DiscountDTO discountDTO) {
         Discount discount = Discount.builder()
+                .id(id)
                 .name(discountDTO.getName())
                 .amount(discountDTO.getAmount())
                 .discountFrom(discountDTO.getDiscountFrom())
