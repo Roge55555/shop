@@ -53,13 +53,11 @@ public class Product {
     @JoinColumn(name = "status")
     private RegistrationStatus status;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<Rating> ratingList;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

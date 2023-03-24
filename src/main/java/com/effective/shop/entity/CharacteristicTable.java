@@ -1,5 +1,6 @@
 package com.effective.shop.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,6 +21,7 @@ public class CharacteristicTable {
     @Column(name = "id")
     private Long id;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
