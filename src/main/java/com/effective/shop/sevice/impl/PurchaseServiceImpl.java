@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -94,6 +95,18 @@ public class PurchaseServiceImpl implements PurchaseService {
         else {
             throw new TooLowAccessException("Only creator can cancel his purchase!");
         }
+    }
+
+    @Override
+    public List<Long> findAllUserIdWhoBuyProductById(Long productId) {
+        List<Purchase> purchaseList = purchaseRepository.findAllByProductId(productId);
+        List<Long> idList = new ArrayList<>();
+        for(Purchase purchase : purchaseList) {
+            if (purchase.getDate().plusDays(1).isBefore(LocalDateTime.now())) {
+                idList.add(purchase.getCreator().getId());
+            }
+        }
+        return idList;
     }
 
 }

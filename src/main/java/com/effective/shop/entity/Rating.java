@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.PositiveOrZero;
 
 @AllArgsConstructor
@@ -33,6 +34,7 @@ public class Rating {
 
     @Column(name = "rating")
     @PositiveOrZero
+    @Max(10)
     private Double rating;
 
     @Column(name = "review")
