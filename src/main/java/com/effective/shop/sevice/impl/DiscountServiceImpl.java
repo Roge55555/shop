@@ -40,9 +40,6 @@ public class DiscountServiceImpl implements DiscountService {
         if (Objects.nonNull(discount.getName())) {
             updatedDiscount.setName(discount.getName());
         }
-        if (Objects.nonNull(discount.getCreator().getId())) {
-            updatedDiscount.setCreator(userService.findById(discount.getCreator().getId()));
-        }
         if (Objects.nonNull(discount.getAmount())) {
             updatedDiscount.setAmount(discount.getAmount());
         }

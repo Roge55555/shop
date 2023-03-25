@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
@@ -32,6 +33,7 @@ public class Discount {
     @Column(name = "amount")
     @NotNull
     @Positive
+    @Max(100)
     private Long amount;
 
     @Column(name = "discount_from")
