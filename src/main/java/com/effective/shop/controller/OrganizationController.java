@@ -12,6 +12,7 @@ import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
+@RequestMapping("/organizations")
 public class OrganizationController {
 
     private final OrganizationService organizationService;
