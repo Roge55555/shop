@@ -13,4 +13,6 @@ public interface PurchaseService {
     List<Purchase> getAllPurchaseOfUser(Long userId);
 
     void delete(Long purchaseId);
+
+    List<Long> findAllUserIdWhoBuyProductById(Long productId);
 }
