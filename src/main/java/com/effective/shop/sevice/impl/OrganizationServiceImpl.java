@@ -6,6 +6,7 @@ import com.effective.shop.exceptions.NoSuchElementException;
 import com.effective.shop.model.Status;
 import com.effective.shop.repository.OrganizationRepository;
 import com.effective.shop.sevice.OrganizationService;
+import com.effective.shop.sevice.PurchaseService;
 import com.effective.shop.sevice.RegistrationStatusService;
 import com.effective.shop.sevice.UserService;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     private final RegistrationStatusService registrationStatusService;
 
+    private final PurchaseService purchaseService;
+
     @Override
     public Organization add(Organization organization) {
         organization.setDateCreated(LocalDate.now());
@@ -36,9 +39,20 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     public Organization findById(Long id) {
-        return organizationRepository.findById(id).orElseThrow(() -> {
+        Organization organization = organizationRepository.findById(id).orElseThrow(() -> {
             throw new NoSuchElementException(id);
         });
+
+        if(organization.getStatus().getName().equals(Status.APPROVED)) {
+            return organization;
+        }
+        else if ((organization.getStatus().getName().equals(Status.FROZEN) || organization.getStatus().getName().equals(Status.DELETED)) &&
+                purchaseService.findAllUserIdWhoBuyProductById(id).contains(userService.findByLogin(Utils.getLogin()).getId())) {
+            return organization;
+        }
+        else {
+            throw new NoSuchElementException(id);
+        }
     }
 
     @Override

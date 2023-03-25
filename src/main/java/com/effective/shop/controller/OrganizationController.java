@@ -49,4 +49,11 @@ public class OrganizationController {
     public Organization getById(@PathVariable("id") Long id) {
         return organizationService.findById(id);
     }
+
+    @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.FOUND)
+    @PreAuthorize("hasAuthority('admin:permission')")
+    public void updateStatus(@PathVariable("id") Long id, @RequestBody String status) {
+        organizationService.updateStatus(id, status);
+    }
 }
