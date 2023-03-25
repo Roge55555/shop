@@ -5,11 +5,14 @@ import com.effective.shop.entity.Product;
 import com.effective.shop.entity.Purchase;
 import com.effective.shop.exceptions.*;
 import com.effective.shop.model.Role;
+import com.effective.shop.model.Status;
 import com.effective.shop.repository.PurchaseRepository;
+import com.effective.shop.sevice.OrganizationService;
 import com.effective.shop.sevice.ProductService;
 import com.effective.shop.sevice.PurchaseService;
 import com.effective.shop.sevice.UserService;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -30,38 +33,46 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     private final UserService userService;
 
+    private final OrganizationService organizationService;
+
     @Transactional(isolation = Isolation.SERIALIZABLE,
             propagation = Propagation.REQUIRES_NEW,
             rollbackFor = Exception.class,
             noRollbackFor = NoSuchElementException.class)
     @Override
     public Purchase add(Purchase purchase) {
+
         Product product = productService.findById(purchase.getProduct().getId());
         Double check;
+        if(organizationService.findById(product.getOrganization().getId()).getCreator().getLogin().equals(Utils.getLogin()) &&
+                organizationService.findById(product.getOrganization().getId()).getStatus().getName().equals(Status.APPROVED) &&
+        productService.findById(product.getId()).getStatus().getName().equals(Status.APPROVED)) {
+            if (product.getAmount() >= purchase.getAmount()) {
 
-        if (product.getAmount() >= purchase.getAmount()) {
+                check = product.getPrice() * purchase.getAmount();
+                if (Objects.nonNull(product.getDiscount())) {
+                    check *= (1 - (Double.valueOf(product.getDiscount().getAmount()) / 100));
+                }
 
-            check = product.getPrice() * purchase.getAmount();
-            if (Objects.nonNull(product.getDiscount())) {
-                check *= (1 - (Double.valueOf(product.getDiscount().getAmount()) / 100));
+                if (userService.findByLogin(Utils.getLogin()).getBalance() < check) {
+                    throw new TooLowBalanceException("Not enough money on balance");
+                }
+
+                userService.changeBalance(userService.findByLogin(Utils.getLogin()).getBalance() - check, userService.findByLogin(Utils.getLogin()).getId());
+                userService.changeBalance(product.getOrganization().getCreator().getBalance() + (check * 0.95), product.getOrganization().getCreator().getId());
+
+                productService.updateAmount(product.getAmount() - purchase.getAmount(), product.getId());
+
+                purchase.setCreator(userService.findByLogin(Utils.getLogin()));
+                purchase.setDate(LocalDateTime.now());
+
+                return purchaseRepository.save(purchase);
+            } else {
+                throw new NotEnoughElementException("Not enough this product on the stock");
             }
-
-            if(userService.findByLogin(Utils.getLogin()).getBalance() < check) {
-                throw new TooLowBalanceException("Not enough money on balance");
-            }
-
-            userService.changeBalance(userService.findByLogin(Utils.getLogin()).getBalance() - check, userService.findByLogin(Utils.getLogin()).getId());
-            userService.changeBalance(product.getOrganization().getCreator().getBalance() + (check * 0.95), product.getOrganization().getCreator().getId());
-
-            productService.updateAmount(product.getAmount() - purchase.getAmount(), product.getId());
-
-            purchase.setCreator(userService.findByLogin(Utils.getLogin()));
-            purchase.setDate(LocalDateTime.now());
-
-            return purchaseRepository.save(purchase);
         }
         else {
-            throw new NotEnoughElementException("Not enough this product on the stock");
+            throw new NoSuchElementException(product.getId());
         }
     }
 
