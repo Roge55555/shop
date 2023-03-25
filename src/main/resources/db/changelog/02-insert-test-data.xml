@@ -20,13 +20,21 @@
             <column name="role_name" value="FROZEN"/>
         </insert>
 
-        <insert tableName="user">
-            <column name="id" value="1"/>
-            <column name="login" value="rogE"/>
-            <column name="password" value="$2y$12$.ZAsJHbg3ZUcGe/oPF/STey9e2UGDzjQ3rFpCc7jt1TAShufFjBHC"/>
-            <column name="email" value="roge55555@gmail.com"/>
-            <column name="balance" valueNumeric="1000"/>
-            <column name="role" valueNumeric="1"/>
+        <insert tableName="registration_status">
+            <column name="id" valueNumeric="1"/>
+            <column name="status_name" value="CONSIDERATION"/>
+        </insert>
+        <insert tableName="registration_status">
+            <column name="id" valueNumeric="2"/>
+            <column name="status_name" value="APPROVED"/>
+        </insert>
+        <insert tableName="registration_status">
+            <column name="id" valueNumeric="3"/>
+            <column name="status_name" value="FROZEN"/>
+        </insert>
+        <insert tableName="registration_status">
+            <column name="id" valueNumeric="4"/>
+            <column name="status_name" value="DELETED"/>
         </insert>
     </changeSet>
 
