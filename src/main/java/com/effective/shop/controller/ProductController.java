@@ -1,5 +1,6 @@
 package com.effective.shop.controller;
 
+import com.effective.shop.entity.Discount;
 import com.effective.shop.entity.Organization;
 import com.effective.shop.entity.Product;
 import com.effective.shop.model.dto.ProductDTO;
@@ -21,30 +22,32 @@ public class ProductController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAuthority('user:permission')")
-    public Product addProduct(@Valid @RequestBody ProductDTO purchaseDTO) {
+    public Product addProduct(@Valid @RequestBody ProductDTO productDTO) {
         Product product = Product.builder()
-                .name(purchaseDTO.getName())
-                .description(purchaseDTO.getDescription())
-                .price(purchaseDTO.getPrice())
-                .amount(purchaseDTO.getAmount())
-                .tag(purchaseDTO.getTag())
-                .organization(Organization.builder().id(purchaseDTO.getOrganizationId()).build())
+                .name(productDTO.getName())
+                .description(productDTO.getDescription())
+                .price(productDTO.getPrice())
+                .amount(productDTO.getAmount())
+                .tag(productDTO.getTag())
+                .organization(Organization.builder().id(productDTO.getOrganizationId()).build())
+                .discount(Discount.builder().id(productDTO.getDiscountId()).build())
                 .build();
         return productService.add(product);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    @PreAuthorize("hasAuthority('admin:permission')")
-    public void updateProduct(@PathVariable("id") Long id, @RequestBody ProductDTO purchaseDTO) {
+    @PreAuthorize("hasAuthority('user:permission')")
+    public void updateProduct(@PathVariable("id") Long id, @RequestBody ProductDTO productDTO) {
         Product product = Product.builder()
                 .id(id)
-                .name(purchaseDTO.getName())
-                .description(purchaseDTO.getDescription())
-                .price(purchaseDTO.getPrice())
-                .amount(purchaseDTO.getAmount())
-                .tag(purchaseDTO.getTag())
-                .organization(Organization.builder().id(purchaseDTO.getOrganizationId()).build())
+                .name(productDTO.getName())
+                .description(productDTO.getDescription())
+                .price(productDTO.getPrice())
+                .amount(productDTO.getAmount())
+                .tag(productDTO.getTag())
+                .organization(Organization.builder().id(productDTO.getOrganizationId()).build())
+                .discount(Discount.builder().id(productDTO.getDiscountId()).build())
                 .build();
         productService.update(product);
 

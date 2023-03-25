@@ -27,4 +27,6 @@ public class ProductDTO {
     private String tag;
 
     private Long organizationId;
+
+    private Long discountId;
 }
