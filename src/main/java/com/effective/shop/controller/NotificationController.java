@@ -34,7 +34,7 @@ public class NotificationController {
     @GetMapping
     @ResponseStatus(HttpStatus.FOUND)
     @PreAuthorize("hasAuthority('user:permission')")
-    public List<Notification> getAllUsers() {
+    public List<Notification> getAllNotifications() {
         return notificationService.getMyNotification();
     }
 }
