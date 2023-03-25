@@ -34,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product add(Product product) {
         if((organizationService.findById(product.getOrganization().getId()).getCreator().getLogin().equals(Utils.getLogin()) &&
-                organizationService.findById(product.getOrganization().getId()).getStatus().getName().equals(Status.APPROVED)) ||
+                findById(product.getId()).getStatus().getName().equals(Status.APPROVED)) ||
                 userService.findByLogin(Utils.getLogin()).getRole().getName().equals(Role.ADMIN)) {
             product.setStatus(registrationStatusService.findByName(Status.CONSIDERATION));
             product.setOrganization(organizationService.findById(product.getOrganization().getId()));
@@ -69,7 +69,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product update(Product product) {
         if((organizationService.findById(product.getOrganization().getId()).getCreator().getLogin().equals(Utils.getLogin()) &&
-                organizationService.findById(product.getOrganization().getId()).getStatus().getName().equals(Status.APPROVED)) ||
+                findById(product.getId()).getStatus().getName().equals(Status.APPROVED)) ||
                 userService.findByLogin(Utils.getLogin()).getRole().getName().equals(Role.ADMIN)) {
             Product updatedProduct = findById(product.getId());
 
