@@ -60,4 +60,11 @@ public class ProductController {
         return productService.findById(id);
     }
 
+    @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.FOUND)
+    @PreAuthorize("hasAuthority('admin:permission')")
+    public void updateStatus(@PathVariable("id") Long id, @RequestBody String status) {
+        productService.updateStatus(id, status);
+    }
+
 }

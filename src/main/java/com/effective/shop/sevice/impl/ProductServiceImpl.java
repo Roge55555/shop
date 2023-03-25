@@ -29,6 +29,8 @@ public class ProductServiceImpl implements ProductService {
 
     private final DiscountService discountService;
 
+    private final PurchaseService purchaseService;
+
     @Override
     public Product add(Product product) {
         if((organizationService.findById(product.getOrganization().getId()).getCreator().getLogin().equals(Utils.getLogin()) &&
@@ -48,9 +50,20 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     @Override
     public Product findById(Long id) {
-        return productRepository.findById(id).orElseThrow(() -> {
+        Product product = productRepository.findById(id).orElseThrow(() -> {
             throw new NoSuchElementException(id);
         });
+
+        if(product.getStatus().getName().equals(Status.APPROVED)) {
+            return product;
+        }
+        else if ((product.getStatus().getName().equals(Status.FROZEN) || product.getStatus().getName().equals(Status.DELETED)) &&
+        purchaseService.findAllUserIdWhoBuyProductById(id).contains(userService.findByLogin(Utils.getLogin()).getId())) {
+            return product;
+        }
+        else {
+            throw new NoSuchElementException(id);
+        }
     }
 
     @Override
