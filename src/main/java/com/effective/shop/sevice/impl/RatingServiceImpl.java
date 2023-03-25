@@ -4,7 +4,6 @@ import com.effective.shop.Utils;
 import com.effective.shop.entity.Rating;
 import com.effective.shop.exceptions.TooLowAccessException;
 import com.effective.shop.model.Role;
-import com.effective.shop.model.Status;
 import com.effective.shop.repository.RatingRepository;
 import com.effective.shop.sevice.ProductService;
 import com.effective.shop.sevice.PurchaseService;
