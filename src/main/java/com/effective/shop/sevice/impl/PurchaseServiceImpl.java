@@ -51,8 +51,9 @@ public class PurchaseServiceImpl implements PurchaseService {
             }
 
             userService.changeBalance(userService.findByLogin(Utils.getLogin()).getBalance() - check, userService.findByLogin(Utils.getLogin()).getId());
+            userService.changeBalance(product.getOrganization().getCreator().getBalance() + (check * 0.95), product.getOrganization().getCreator().getId());
 
-            productService.updateAmount(product.getAmount() - purchase.getAmount(), userService.findByLogin(Utils.getLogin()).getId());
+            productService.updateAmount(product.getAmount() - purchase.getAmount(), product.getId());
 
             purchase.setCreator(userService.findByLogin(Utils.getLogin()));
             purchase.setDate(LocalDateTime.now());
